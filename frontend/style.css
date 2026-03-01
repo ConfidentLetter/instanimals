@@ -272,3 +272,29 @@ body {
   font-size: 14px;
   margin: 0;
 }
+
+/* ===== AVATAR ===== */
+.user-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: var(--accentSoft);
+  border: 2px solid #ffd6cf;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--accent);
+  overflow: hidden;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowHover);
+  padding: 16px 20px;
+  border-radius: 18px;
+  min-width: 300px;
+  animation: slideIn 350ms var(--easeOut) both;
+}
+
