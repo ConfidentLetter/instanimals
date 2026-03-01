@@ -97,3 +97,23 @@ body {
   margin: 10px 0 0;
   padding: 0;
 }
+
+#nav-menu a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+  border: 1px solid transparent;
+
+  /* avoid transition: all (more professional) */
+  transition:
+    transform var(--tMed) var(--easeOut),
+    background-color var(--tMed) var(--easeOut),
+    border-color var(--tMed) var(--easeOut),
+    box-shadow var(--tMed) var(--easeOut),
+    color var(--tMed) var(--easeOut);
+}
