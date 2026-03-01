@@ -123,3 +123,33 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 18px 35px rgba(255,106,136,.35);
 }
+
+#btn-create-post:active {
+  transform: scale(.97);
+}
+
+/* ===== USER PROFILE (BOTTOM CARD) ===== */
+#user-profile-summary {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#user-profile-summary:hover {
+  background: var(--panelSoft);
+  padding: 12px;
+  border-radius: 16px;
+}
+
+/* ===== MAIN CONTENT ===== */
+#app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
