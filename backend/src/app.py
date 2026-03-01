@@ -77,15 +77,14 @@ def generate_animal_speech():
         blob = bucket.blob(f"animal_speech/{animal_id}_{gender}.mp3")
         blob.upload_from_string(audio, content_type="audio/mpeg")
 
-        audio_ref.set({
-            "audio_url": blob.public_url,
-            "text": text,
-            "created_at": firestore.SERVER_TIMESTAMP
-        })
+        audio_ref.set(
+            {
+                "audio_url": blob.public_url,
+                "text": text,
+                "created_at": firestore.SERVER_TIMESTAMP,
+            }
+        )
 
-        return jsonify({
-            "status": "success",
-            "audio_url": blob.public_url
-        })
+        return jsonify({"status": "success", "audio_url": blob.public_url})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
