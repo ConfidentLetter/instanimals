@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+
 if not firebase_admin._apps:
     cred = credentials.Certificate("serviceAccountKey.json")
     firebase_admin.initialize_app(cred)
@@ -8,7 +9,10 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 
+
 def seed_firebase_data():
+    """Uploads shelter and interaction data to Firestore | 上传数据至云端"""
+
 
     shelters = {
         "1": {"name": "DVC Happy Paws", "image_url": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},
@@ -16,19 +20,26 @@ def seed_firebase_data():
         "3": {"name": "Instanimal Center", "image_url": "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1"}
     }
 
-
     interactions = [
         {'foster_id': 101, 'shelter_id': 1, 'follow': 1, 'star': 4.5, 'lowest_age': 1, 'quantity_anim': 45},
         {'foster_id': 102, 'shelter_id': 1, 'follow': 1, 'star': 5.0, 'lowest_age': 1, 'quantity_anim': 45},
         {'foster_id': 102, 'shelter_id': 2, 'follow': 0, 'star': 3.0, 'lowest_age': 0, 'quantity_anim': 12}
     ]
 
-print("Starting Firebase upload... ")
 
-for s_id, data in shelters.items():
-    db.collection('shelters').document(s_id).set(data)
-    print(f"Uploaded Shelter ID: {s_id}")
+    print("Starting Firebase upload... ")
 
-for entry in interactions:
-    db.collection('interactions').add(entry)
-    print(f"Uploaded interaction for Foster: {entry['foster_id']}")
+
+    for s_id, data in shelters.items():
+        db.collection('shelters').document(s_id).set(data)
+        print(f"Uploaded Shelter ID: {s_id}")
+
+    for entry in interactions:
+        db.collection('interactions').add(entry)
+        print(f"Uploaded interaction for Foster: {entry['foster_id']}")
+
+
+
+if __name__ == "__main__":
+    seed_firebase_data()
+    print("Firebase is ready! ")
