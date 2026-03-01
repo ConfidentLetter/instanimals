@@ -9,37 +9,41 @@ load_dotenv()
 
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
-from flask import Flask, jsonify, request, render_template, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 
 # --------------------------
 # Firebase Admin init
 # --------------------------
-cred_path = os.environ.get("FIREBASE_CREDENTIALS")
-if not cred_path:
-    raise RuntimeError("Missing FIREBASE_CREDENTIALS env var (path to service account json).")
+import firebase_admin
+from firebase_admin import firestore
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate(cred_path)
-    firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app()  # uses Cloud Run service account (ADC)
 
 db = firestore.client()
 
 # --------------------------
 # Flask init (MUST be before any @app.route)
 # --------------------------
-_frontend = Path(__file__).resolve().parent.parent.parent / "frontend"
-app = Flask(__name__, template_folder=_frontend)
+# Cloud Run container path
+_frontend = Path("/app/frontend")
+
+# --- Flask app must be created BEFORE any @app.route ---
+app = Flask(__name__)
+
+# In the container, frontend is copied to /app/frontend by Dockerfile
+_FRONTEND_DIR = Path("/app/frontend")
 
 @app.get("/")
-def index():
-    return send_from_directory(_frontend, "index.html")
+def serve_index():
+    return send_from_directory(_FRONTEND_DIR, "index.html")
 
 @app.get("/<path:filename>")
 def serve_frontend_file(filename):
+    # Don't let this catch API routes
     if filename.startswith("api/"):
         return jsonify({"ok": False, "error": "not found"}), 404
-    return send_from_directory(_frontend, filename)
-
+    return send_from_directory(_FRONTEND_DIR, filename)
 
 # --------------------------
 # Algo helpers
@@ -181,6 +185,7 @@ def _pet_public_fields(p: dict) -> dict:
     return {
         "id": p.get("id"),
         "name": p.get("name"),
+        "gender": p.get("gender"),
         "species": p.get("species"),
         "breed": p.get("breed"),
         "ageMonths": p.get("ageMonths"),
@@ -394,7 +399,7 @@ def create_pet():
         shelter_uid = require_role("shelter")
         body = request.get_json(force=True) or {}
 
-        required = ["name", "breed", "ageMonths", "size", "sex"]
+        required = ["name", "breed", "ageMonths", "size", "gender"]
         for k in required:
             if k not in body or str(body.get(k)).strip() == "":
                 return fail(f"missing field: {k}", 400)
@@ -405,7 +410,7 @@ def create_pet():
             "breed": str(body["breed"]).strip(),
             "ageMonths": int(body["ageMonths"]),
             "size": str(body["size"]).strip(),
-            "sex": str(body["sex"]).strip(),
+            "gender": str(body["gender"]).strip(),
             "status": str(body.get("status", "adoptable")).strip(),
             "locationCity": (str(body.get("locationCity")).strip() if body.get("locationCity") else None),
             "coverImageUrl": (str(body.get("coverImageUrl")).strip() if body.get("coverImageUrl") else None),
@@ -434,7 +439,7 @@ def update_pet(pet_id: str):
             return fail("forbidden: not your pet", 403)
 
         body = request.get_json(force=True) or {}
-        allowed = {"name", "breed", "ageMonths", "size", "sex", "status", "locationCity", "coverImageUrl"}
+        allowed = {"name", "breed", "ageMonths", "size", "gender", "status", "locationCity", "coverImageUrl"}
         patch = {k: body[k] for k in body.keys() if k in allowed}
         if "ageMonths" in patch:
             patch["ageMonths"] = int(patch["ageMonths"])

@@ -10,7 +10,9 @@
     <nav class="nav">
       <div class="container nav-inner">
         <a class="home-badge" href="/">
-          <div class="home-icon">🏠</div>
+          <div class="home-icon">
+            <img class="logo-ico" src="/assets/success/house-badge.png" alt="logo" />
+          </div>
           <div class="home-text">Home</div>
         </a>
         <div class="nav-links">
@@ -27,59 +29,136 @@
         <h1 class="center-title">Login:</h1>
         <div class="center-sub">Thank you for being a foster family</div>
 
-        <div class="login-card">
-          <form id="loginForm">
+        <div class="form-card login-card">
+          <form id="authForm">
             <div class="row2">
               <div class="field">
-                <label>Enter Your Username:</label>
+                <label>Email</label>
                 <input id="email" type="email" placeholder="you@email.com" />
               </div>
               <div class="field">
-                <label>Enter Your Password:</label>
+                <label>Password</label>
                 <input id="password" type="password" placeholder="••••••••" />
               </div>
             </div>
 
             <div style="text-align:center; margin-top:16px;">
-              <button class="btn" type="submit">Login</button>
+              <button class="btn" id="loginBtn" type="button">Login</button>
+              <button class="btn secondary" id="registerBtn" type="button" style="margin-left:10px;">Register</button>
+              <button class="btn secondary" id="logoutBtn" type="button" style="display:none;margin-left:10px;">Logout</button>
+            </div>
+
+            <div class="notice" id="authStatus" style="margin-top:14px;">
+              Not logged in.
+            </div>
+
+            <div class="small" style="margin-top:10px;">
+              Tip: Register creates a Firebase Auth account (email/password).
             </div>
           </form>
-
-          <div class="cards" style="margin-top:22px;">
-            <div class="pet-card" style="cursor:default;">
-              <div class="pet-img"><img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?auto=format&fit=crop&w=900&q=80" alt=""></div>
-              <div class="pet-body">
-                <p class="pet-name">Max</p>
-                <div class="pet-meta">Malinois</div>
-                <div class="pet-mini">Is the great protector of his new family!</div>
-                <div class="badge">Adopted 🏠</div>
-              </div>
-            </div>
-
-            <div class="pet-card" style="cursor:default;">
-              <div class="pet-img"><img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=900&q=80" alt=""></div>
-              <div class="pet-body">
-                <p class="pet-name">Stacy</p>
-                <div class="pet-meta">Cat</div>
-                <div class="pet-mini">Could be the sleepiest cat ever!</div>
-                <div class="badge">Adopted 🏠</div>
-              </div>
-            </div>
-
-            <div class="pet-card" style="cursor:default;">
-              <div class="pet-img"><img src="https://images.unsplash.com/photo-1541438633571-0bea6f88d26f?auto=format&fit=crop&w=900&q=80" alt=""></div>
-              <div class="pet-body">
-                <p class="pet-name">Eduardo</p>
-                <div class="pet-meta">Iguana</div>
-                <div class="pet-mini">Found a loving family quickly!</div>
-                <div class="badge">Adopted 🏠</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
 
-    <script src="/login.js"></script>
+    <script type="module">
+      // ✅ Fill from Firebase Console -> Project settings -> General -> Your apps (Web app) -> Config
+      const firebaseConfig = {
+        apiKey: "PASTE_ME",
+        authDomain: "PASTE_ME",
+        projectId: "instanimals-8f702",
+        appId: "PASTE_ME",
+      };
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged
+      } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      const $ = (id) => document.getElementById(id);
+      const statusEl = $("authStatus");
+      const loginBtn = $("loginBtn");
+      const registerBtn = $("registerBtn");
+      const logoutBtn = $("logoutBtn");
+
+      function setStatus(msg){ statusEl.textContent = msg; }
+      function setBusy(isBusy){
+        loginBtn.disabled = isBusy;
+        registerBtn.disabled = isBusy;
+        loginBtn.textContent = isBusy ? "Working..." : "Login";
+        registerBtn.textContent = isBusy ? "Working..." : "Register";
+      }
+
+      async function saveTokenAndGoHome(user){
+        const token = await user.getIdToken();
+        localStorage.setItem("idToken", token);
+        localStorage.setItem("userEmail", user.email || "");
+        location.href = "/";
+      }
+
+      loginBtn.addEventListener("click", async () => {
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        if(!email || !password) return setStatus("Please enter email and password.");
+
+        setBusy(true);
+        try{
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+          setStatus(`Logged in as ${cred.user.email}`);
+          await saveTokenAndGoHome(cred.user);
+        }catch(err){
+          console.error(err);
+          setStatus("Login failed: " + (err?.message || err));
+        }finally{
+          setBusy(false);
+        }
+      });
+
+      registerBtn.addEventListener("click", async () => {
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        if(!email || !password) return setStatus("Please enter email and password.");
+        if(password.length < 6) return setStatus("Password must be at least 6 characters.");
+
+        setBusy(true);
+        try{
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          setStatus(`Registered & logged in as ${cred.user.email}`);
+          await saveTokenAndGoHome(cred.user);
+        }catch(err){
+          console.error(err);
+          setStatus("Register failed: " + (err?.message || err));
+        }finally{
+          setBusy(false);
+        }
+      });
+
+      logoutBtn.addEventListener("click", async () => {
+        await signOut(auth);
+        localStorage.removeItem("idToken");
+        localStorage.removeItem("userEmail");
+        setStatus("Logged out.");
+        logoutBtn.style.display = "none";
+      });
+
+      onAuthStateChanged(auth, async (user) => {
+        if(user){
+          const token = await user.getIdToken();
+          localStorage.setItem("idToken", token);
+          localStorage.setItem("userEmail", user.email || "");
+          setStatus(`Logged in as ${user.email || "user"}`);
+          logoutBtn.style.display = "inline-flex";
+        }else{
+          setStatus("Not logged in.");
+          logoutBtn.style.display = "none";
+        }
+      });
+    </script>
   </body>
 </html>
