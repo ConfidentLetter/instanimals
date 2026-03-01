@@ -1,75 +1,69 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+import firebase_admin
+from firebase_admin import credentials, firestore
 from recommender import build_advanced_matrix, get_hybrid_recommendations
 
 app = Flask(__name__)
 
+
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
-class Interaction(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    foster_id = db.Column(db.Integer)
-    shelter_id = db.Column(db.Integer)
-    follow = db.Column(db.Integer)
-    star = db.Column(db.Float)
-    lowest_age = db.Column(db.Integer)
-    quantity_anim = db.Column(db.Integer)
-
-    class Interaction(db.Model):
-
-        id = db.Column(db.Integer, primary_key=True)
-        foster_id = db.Column(db.Integer)
-        shelter_id = db.Column(db.Integer)
-        follow = db.Column(db.Integer)
-        star = db.Column(db.Float)
-        lowest_age = db.Column(db.Integer)
-        quantity_anim = db.Column(db.Integer)
-
-class ShelterInfo(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, name="shelter_id")
-    name = db.Column(db.String(100))
-    image_url = db.Column(db.String(255))
-
-    @app.route('/api/recommend', methods=['GET'])
-    def recommend(self):
-
-        try:
-
-            target_id = request.args.get('shelter_id', type=int)
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 
-            records = Interaction.query.all()
-            raw_data = [{
-                'foster_id': r.foster_id, 'shelter_id': r.shelter_id,
-                'follow': r.follow, 'star': r.star,
-                'lowest_age': r.lowest_age, 'quantity_anim': r.quantity_anim
-            } for r in records]
+
+@app.route('/api/recommend', methods=['GET'])
+def recommend():
+    """Fetch data from Firestore and run recommendation logic | 从 Firestore 获取数据并运行推荐逻辑"""
+    try:
+
+        target_id = request.args.get('shelter_id', type=int)
 
 
-            matrix = build_advanced_matrix(raw_data)
-            recommendations = get_hybrid_recommendations(target_id, matrix)
+        interactions_ref = db.collection('interactions')
+        docs = interactions_ref.stream()
+
+        raw_data = []
+        for doc in docs:
+            data = doc.to_dict()
+            raw_data.append({
+                'foster_id': data.get('foster_id'),
+                'shelter_id': data.get('shelter_id'),
+                'follow': data.get('follow'),
+                'star': data.get('star'),
+                'lowest_age': data.get('lowest_age'),
+                'quantity_anim': data.get('quantity_anim')
+            })
 
 
-            enriched_results = []
-            for s_id, score in recommendations.items():
-                info = ShelterInfo.query.get(int(s_id))
-                if info:
-                    enriched_results.append({
-                        "shelter_id": int(s_id),
-                        "name": info.name,
-                        "image_url": info.image_url,
-                        "similarity": round(float(score), 2)
-                    })
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+        matrix = build_advanced_matrix(raw_data)
+        recommendations = get_hybrid_recommendations(target_id, matrix)
 
-        if __name__ == "__main__":
 
-            app.run(debug=True, port=5000)
+        enriched_results = []
+        for s_id, score in recommendations.items():
+
+            shelter_doc = db.collection('shelters').document(str(s_id)).get()
+
+            if shelter_doc.exists:
+                info = shelter_doc.to_dict()
+                enriched_results.append({
+                    "shelter_id": int(s_id),
+                    "name": info.get('name'),
+                    "image_url": info.get('image_url'),
+                    "similarity": round(float(score), 2)
+                })
+
+        return jsonify(enriched_results)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    # The server will run on http://localhost:5000
+    app.run(debug=True, port=5000)
