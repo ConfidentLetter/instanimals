@@ -11,4 +11,30 @@
   --accent: #ff6a88;
   --accent2: #ff9a8b;
   --accentSoft: #ffe9e5;
-  
+
+  /* UI Tokens */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadowHover: 0 14px 40px rgba(0, 0, 0, 0.08);
+  --radius: 18px;
+  --radiusSm: 12px;
+
+  --sidebarW: 260px;
+  --headerH: 72px;
+
+  /* Motion */
+  --easeOut: cubic-bezier(0.16, 1, 0.3, 1);
+  --tFast: 160ms;
+  --tMed: 240ms;
+}
+
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
