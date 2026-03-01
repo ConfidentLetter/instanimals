@@ -245,3 +245,30 @@ body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+
+   transition:
+    transform var(--tMed) var(--easeOut),
+    box-shadow var(--tMed) var(--easeOut),
+    border-color var(--tMed) var(--easeOut);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadowHover);
+}
+
+.card-pad {
+  padding: 22px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 0 8px;
+}
+
+.section-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
