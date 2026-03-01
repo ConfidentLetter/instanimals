@@ -1,2 +1,159 @@
-<!DOCTYPE html>
-<html lang="en"></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instanimals</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="home-badge" href="/">
+          <div class="home-icon">🏠</div>
+          <div class="home-text">Home</div>
+        </a>
+        <div class="nav-links">
+          <a href="#stories">Success Stories</a>
+          <a href="#how">How it Works</a>
+          <a href="/login.html">Login</a>
+          <div class="user-pill">👤</div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1800&q=80" alt="hero" />
+      </div>
+      <div class="hero-overlay">
+        <div class="hero-title">Instanimals</div>
+      </div>
+
+      <div class="hero-strip">
+        <div class="container">
+          <h2>Find a foster animal. Save a life.</h2>
+          <p>One application. Every shelter. Every animal. Every life.</p>
+          <button class="btn" onclick="location.href='#explore'">Start Fostering</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="how">
+      <div class="container">
+        <h3 class="section-title">Its as easy as 1, 2, 3...</h3>
+
+        <div class="grid3">
+          <div class="step-card">
+            <div class="step-top"><div class="icon">📜</div></div>
+            <div class="step-body">
+              <p class="step-k">1. Apply Once</p>
+              <p class="step-desc">One form.<br/>Works for.<br/>All shelters.</p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top"><div class="icon">🔎</div></div>
+            <div class="step-body">
+              <p class="step-k">2. Find an Animal</p>
+              <p class="step-desc">See all available in your area<br/>and by your preferences</p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top"><div class="icon">🏡</div></div>
+            <div class="step-body">
+              <p class="step-k">3. Create a Home</p>
+              <p class="step-desc">Take them home as soon as possible</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic pets -->
+    <section class="section" id="explore">
+      <div class="container">
+        <h3 class="section-title" style="font-size:44px;">Urgent Pets</h3>
+        <div class="cards" id="urgentCards"></div>
+
+        <div style="height:18px;"></div>
+
+        <h3 class="section-title" style="font-size:44px;">Explore (Diverse)</h3>
+        <div class="cards scroll-row" id="exploreCards"></div>
+
+        <p class="section-sub" id="dataHint" style="margin-top:12px;"></p>
+      </div>
+    </section>
+
+    <section class="section" id="stories">
+      <div class="container">
+        <h3 class="section-title">Success Stories!</h3>
+        <p class="section-sub">Real fosters, Real happy families</p>
+
+        <div class="cards">
+          <div class="pet-card" style="cursor:default;">
+            <div class="pet-img"><img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=900&q=80" alt=""></div>
+            <div class="pet-body">
+              <p class="pet-name">Bruno</p>
+              <div class="pet-meta">Labrador Mix</div>
+              <div class="pet-mini">Found a loving family in just 3 weeks!</div>
+              <div class="badge">Adopted 🏠</div>
+            </div>
+          </div>
+
+          <div class="pet-card" style="cursor:default;">
+            <div class="pet-img"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=900&q=80" alt=""></div>
+            <div class="pet-body">
+              <p class="pet-name">Brodie</p>
+              <div class="pet-meta">Pitbull Mix</div>
+              <div class="pet-mini">Now lives with a caring family!</div>
+              <div class="badge">Adopted 🏠</div>
+            </div>
+          </div>
+
+          <div class="pet-card" style="cursor:default;">
+            <div class="pet-img"><img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=900&q=80" alt=""></div>
+            <div class="pet-body">
+              <p class="pet-name">Lucy</p>
+              <div class="pet-meta">Calico Cat</div>
+              <div class="pet-mini">Found her forever home in two months!</div>
+              <div class="badge">Adopted 🏠</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h3 class="section-title" style="font-size:46px;">Trusted By 50+ Shelters</h3>
+        <p class="section-sub">Partnering with amazing organizations to find quality foster homes faster</p>
+
+        <div class="trusted-box" style="margin-top:16px;">
+          <div class="stat">
+            <div class="n">500+</div>
+            <div class="t">Animals Adopted</div>
+          </div>
+          <div class="stat">
+            <div class="n" style="color:var(--brown);">50+</div>
+            <div class="t">Shelter Partners</div>
+          </div>
+          <div class="stat">
+            <div class="n">100+</div>
+            <div class="t">Active Foster Families</div>
+          </div>
+        </div>
+
+        <div class="partner-row">
+          <div class="partner">Humane<br/>Society</div>
+          <div class="partner">Best Friends</div>
+          <div class="partner">City Shelter</div>
+          <div class="partner">Animal League</div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/main.js"></script>
+  </body>
+</html>
