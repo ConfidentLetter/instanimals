@@ -201,3 +201,31 @@ body{
   top: 0;
   z-index: 50;
 }
+
+#header-left, #header-right{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 120px;
+}
+
+#header-title h2{
+  font-size: 18px;
+  font-weight: 950;
+  color: #333;
+}
+
+/* Optional header button style (if you add buttons) */
+.header-btn{
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  transition: .18s ease;
+}
+.header-btn:hover{
+  background: var(--accentSoft);
+  border-color: #ffd6cf;
+}
