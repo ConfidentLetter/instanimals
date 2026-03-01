@@ -66,3 +66,40 @@ body {
   cursor: pointer;
 }
 
+/* ===== NAV MENU ===== */
+#nav-menu ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+#nav-menu a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+/* Hover Effect (more modern) */
+#nav-menu a:hover {
+  background: var(--panelSoft);
+  border-color: #ffd6cf;
+  transform: translateX(4px);
+  box-shadow: var(--shadow);
+}
+
+/* Active Page */
+#nav-menu a.active {
+  background: linear-gradient(135deg, rgba(255,154,139,.15), rgba(255,106,136,.12));
+  border-color: #ffd6cf;
+  font-weight: 900;
+  color: var(--accent);
+}
