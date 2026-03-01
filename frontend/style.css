@@ -298,3 +298,34 @@ body {
   animation: slideIn 350ms var(--easeOut) both;
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 980px) {
+  :root {
+    --sidebarW: 220px;
+  }
+  #main-view {
+    padding: 18px;
+  }
+}
+
