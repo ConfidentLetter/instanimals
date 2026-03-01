@@ -31,3 +31,8 @@ def get_hybrid_recommendations(target_id, feature_matrix):
 
     if target_id not in feature_matrix.columns:
         return pd.Series(dtype='float64')
+
+    item_sim = cosine_similarity(feature_matrix.T)
+    sim_df = pd.DataFrame(item_sim, index=feature_matrix.columns, columns=feature_matrix.columns)
+
+    return sim_df[target_id].sort_values(ascending=False).iloc[1:]
