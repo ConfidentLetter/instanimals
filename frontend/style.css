@@ -329,3 +329,8 @@ body {
   }
 }
 
+@media (max-width: 820px) {
+  #sidebar {
+    display: none; /* mobile: use drawer later */
+  }
+}
