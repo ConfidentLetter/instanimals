@@ -1,49 +1,57 @@
-function val(id){ return (document.getElementById(id)?.value || "").trim(); }
-function checked(id){ return !!document.getElementById(id)?.checked; }
+function val(id) {
+  return (document.getElementById(id)?.value || "").trim();
+}
+function checked(id) {
+  return !!document.getElementById(id)?.checked;
+}
 
-async function onSubmit(e){
+async function onSubmit(e) {
   e.preventDefault();
 
   const payload = {
     personal: {
-      firstName:  val("firstName"),
-      lastName:   val("lastName"),
-      address:    val("address"),
-      city:       val("city"),
-      state:      val("state"),
-      zip:        val("zip"),
-      phone:      val("phone"),
-      email:      val("email"),
+      firstName: val("firstName"),
+      lastName: val("lastName"),
+      address: val("address"),
+      city: val("city"),
+      state: val("state"),
+      zip: val("zip"),
+      phone: val("phone"),
+      email: val("email"),
     },
     fosterOptions: {
       shortTerm: checked("opt_short"),
-      longTerm:  checked("opt_long"),
+      longTerm: checked("opt_long"),
     },
     household: {
-      hasYard:          val("hasYard"),
-      ownOrRent:        val("ownOrRent"),
-      householdSize:    val("householdSize"),
-      otherPets:        val("otherPets"),
-      landlordOk:       val("landlordOk"),
-      experienceLevel:  val("experienceLevel"),
-      hoursPerWeek:     val("hoursPerWeek"),
-      experienceNotes:  val("experienceNotes"),
+      hasYard: val("hasYard"),
+      ownOrRent: val("ownOrRent"),
+      householdSize: val("householdSize"),
+      otherPets: val("otherPets"),
+      landlordOk: val("landlordOk"),
+      experienceLevel: val("experienceLevel"),
+      hoursPerWeek: val("hoursPerWeek"),
+      experienceNotes: val("experienceNotes"),
       preferredSpecies: val("preferredSpecies"),
-      preferredSize:    val("preferredSize"),
-      canMedicate:      val("canMedicate"),
-      canTransport:     val("canTransport"),
-      notes:            val("notes"),
+      preferredSize: val("preferredSize"),
+      canMedicate: val("canMedicate"),
+      canTransport: val("canTransport"),
+      notes: val("notes"),
     },
     criteria: {
-      age18:             checked("crit_age18"),
-      countyResident:    checked("crit_county"),
+      age18: checked("crit_age18"),
+      countyResident: checked("crit_county"),
       canTransportClinic: checked("crit_transport"),
-      canSeparate:       checked("crit_separate"),
-      signature:         val("signature"),
+      canSeparate: checked("crit_separate"),
+      signature: val("signature"),
     },
   };
 
-  if(!payload.personal.firstName || !payload.personal.lastName || !payload.personal.email){
+  if (
+    !payload.personal.firstName ||
+    !payload.personal.lastName ||
+    !payload.personal.email
+  ) {
     return alert("Please fill in at least First Name, Last Name, and Email.");
   }
 
@@ -51,14 +59,14 @@ async function onSubmit(e){
   btn.disabled = true;
   btn.textContent = "Submitting...";
 
-  try{
+  try {
     const r = await fetch("/api/foster-interest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const j = await r.json().catch(() => ({}));
-    if(!r.ok) throw new Error(j.message || `Error ${r.status}`);
+    if (!r.ok) throw new Error(j.message || `Error ${r.status}`);
 
     // Show confirmation then redirect to create account
     btn.textContent = "Sent!";
@@ -78,7 +86,7 @@ async function onSubmit(e){
           Create My Account
         </a>
       </div>`;
-  }catch(err){
+  } catch (err) {
     console.error(err);
     alert(err.message || "Something went wrong. Please try again.");
     btn.disabled = false;

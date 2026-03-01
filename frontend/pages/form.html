@@ -9,14 +9,30 @@
     <body>
         <nav class="nav">
             <div class="container nav-inner">
-                <a class="home-badge" href="/" style="display:flex;align-items:center;gap:8px;flex-direction:row;width:auto;">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/instanimals-8f702.firebasestorage.app/o/Instanimals%20LOGO.png?alt=media&token=e5116a91-9459-4330-b0a4-5b6c6b26d020" style="height:32px;width:auto;" alt="Instanimals">
-                    <span style="font-size:16px;font-weight:900;color:var(--accent);">Instanimals</span>
+                <a
+                    class="home-badge"
+                    href="/"
+                    style="
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        flex-direction: row;
+                        width: auto;
+                    "
+                >
+                    <div class="home-icon">
+                        <img
+                            class="logo-ico"
+                            src="/assets/success/house-badge.png"
+                            alt="logo"
+                        />
+                    </div>
+                    <div class="home-text">Home</div>
                 </a>
                 <div class="nav-links">
                     <a href="/#stories">Success Stories</a>
                     <a href="/#how">How it Works</a>
-                    <a href="/login.html">Login</a>
+                    <a href="/pages/login.html">Login</a>
                     <div class="user-pill">👤</div>
                 </div>
             </div>
@@ -75,16 +91,44 @@
                         </div>
 
                         <div class="checks">
-                            <div class="small" style="font-weight:900; color:var(--brown);">
-                                The following criteria are required for all foster families. Please check each correct response:
+                            <div
+                                class="small"
+                                style="font-weight: 900; color: var(--brown)"
+                            >
+                                The following criteria are required for all
+                                foster families. Please check each correct
+                                response:
                             </div>
-                            <label><input type="checkbox" id="crit_age18"> I certify that I am 18 years of age or older</label>
-                            <label><input type="checkbox" id="crit_county"> I am a Santa Clara County resident</label>
-                            <label><input type="checkbox" id="crit_transport"> I have immediate and reliable transportation to transport a foster dog to and from the shelter and/or an emergency clinic if needed</label>
-                            <label><input type="checkbox" id="crit_separate"> Foster dogs and resident animals need to be kept separated, at least for an initial decompression period</label>
-                            <div class="field full" style="margin-top:6px;">
-                                <label>Signature — type your name to verify you meet all requirements above</label>
-                                <input id="signature" placeholder="Your full name">
+                            <label
+                                ><input type="checkbox" id="crit_age18" /> I
+                                certify that I am 18 years of age or
+                                older</label
+                            >
+                            <label
+                                ><input type="checkbox" id="crit_county" /> I am
+                                a Santa Clara County resident</label
+                            >
+                            <label
+                                ><input type="checkbox" id="crit_transport" /> I
+                                have immediate and reliable transportation to
+                                transport a foster dog to and from the shelter
+                                and/or an emergency clinic if needed</label
+                            >
+                            <label
+                                ><input type="checkbox" id="crit_separate" />
+                                Foster dogs and resident animals need to be kept
+                                separated, at least for an initial decompression
+                                period</label
+                            >
+                            <div class="field full" style="margin-top: 6px">
+                                <label
+                                    >Signature — type your name to verify you
+                                    meet all requirements above</label
+                                >
+                                <input
+                                    id="signature"
+                                    placeholder="Your full name"
+                                />
                             </div>
                         </div>
 

@@ -1,168 +1,205 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Instanimals</title>
-    <link rel="stylesheet" href="/pages/styles.css" />
-  </head>
-  <body>
-    <nav class="nav">
-      <div class="container nav-inner">
-        <a class="home-badge" href="/">
-          <div class="home-icon">🏠</div>
-          <div class="home-text">Home</div>
-        </a>
-        <div class="nav-links">
-          <a href="/pages/form.html">Become a Foster</a>
-          <a href="/pages/login.html">Login</a>
-        </div>
-      </div>
-    </nav>
-
-    <main class="login-wrap">
-      <div class="container">
-        <div id="mode-tabs" style="display:flex; gap:0; max-width:420px; margin:32px auto 0; border:2px solid var(--line); border-radius:12px; overflow:hidden;">
-          <button id="tab-login" onclick="setMode('login')" style="flex:1; padding:12px; font-weight:1000; border:none; cursor:pointer; background:#fff; color:var(--brown); border-right:1px solid var(--line);">Login</button>
-          <button id="tab-signup" onclick="setMode('signup')" style="flex:1; padding:12px; font-weight:1000; border:none; cursor:pointer; background:#fff; color:var(--brown);">Create Account</button>
-        </div>
-
-        <div class="form-card login-card" style="max-width:420px; margin:16px auto 0;">
-
-          <div id="auth-error" style="display:none; background:#e74c3c; color:#fff; padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:13px; font-weight:800;"></div>
-
-          <!-- Login form -->
-          <form id="loginForm" onsubmit="handleLogin(event)">
-            <h2 style="font-weight:1000; font-size:20px; margin-bottom:4px;">Welcome back</h2>
-            <p style="color:var(--brown2); font-size:13px; font-weight:800; margin-bottom:18px;">Sign in to your Instanimals account</p>
-            <div class="field">
-              <label>Email</label>
-              <input id="login-email" type="email" placeholder="you@email.com" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login - Instanimals</title>
+        <link rel="stylesheet" href="/pages/styles.css" />
+    </head>
+    <body>
+        <nav class="nav">
+            <div class="container nav-inner">
+                <a class="home-badge" href="/" style="flex-direction: row; width: auto; gap: 8px; text-decoration: none;">
+                    <div class="home-icon">
+                        <img
+                            class="logo-ico"
+                            src="/assets/success/house-badge.png"
+                            alt="logo"
+                        />
+                    </div>
+                    <div class="home-text">Home</div>
+                </a>
+                <div class="nav-links">
+                    <a href="/#stories">Success Stories</a>
+                    <a href="/#how">How it Works</a>
+                    <a href="/pages/login.html">Login</a>
+                    <div class="user-pill">👤</div>
+                </div>
             </div>
-            <div class="field" style="margin-top:12px;">
-              <label>Password</label>
-              <input id="login-password" type="password" placeholder="••••••••" />
+        </nav>
+
+        <main class="login-wrap">
+            <div class="container">
+                <h1 class="section-title" id="pageTitle">Login</h1>
+                <div class="section-sub" id="pageSub">
+                    Thank you for being a foster family
+                </div>
+
+                <div class="form-card login-card">
+                    <form id="authForm">
+                        <div id="signupFields" style="display: none;">
+                            <div class="field" style="margin-bottom: 14px;">
+                                <label>Username</label>
+                                <input
+                                    id="username"
+                                    type="text"
+                                    placeholder="Choose a username"
+                                />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Email Address</label>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="you@email.com"
+                                style="margin-bottom: 14px;"
+                            />
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="••••••••"
+                            />
+                        </div>
+
+                        <div style="text-align: center; margin-top: 24px">
+                            <button class="btn" id="primaryBtn" type="button" style="width: 100%;">
+                                Login
+                            </button>
+                            <div style="margin-top: 16px; font-size: 13px; color: var(--brown2); font-weight: 800;">
+                                <span id="switchText">Don't have an account?</span>
+                                <a href="javascript:void(0)" id="switchBtn" style="color: var(--accent); margin-left: 4px; text-decoration: none; font-weight: 1000;">Register</a>
+                            </div>
+                            
+                            <button
+                                class="btn secondary"
+                                id="logoutBtn"
+                                type="button"
+                                style="display: none; width: 100%; margin-top: 10px"
+                            >
+                                Logout
+                            </button>
+                        </div>
+
+                        <div
+                            class="notice"
+                            id="authStatus"
+                            style="margin-top: 14px; text-align: center; font-weight: 800; color: var(--accent); font-size: 13px; min-height: 1em;"
+                        ></div>
+
+                        <div class="small" style="margin-top: 20px; border-top: 1.5px solid var(--line); padding-top: 15px; text-align: center;">
+                            Tip: Your account works across the entire Instanimals platform.
+                        </div>
+                    </form>
+                </div>
             </div>
-            <button class="btn" type="submit" id="loginBtn" style="width:100%; margin-top:18px;">Sign In</button>
-          </form>
+        </main>
 
-          <!-- Signup form -->
-          <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
-            <h2 style="font-weight:1000; font-size:20px; margin-bottom:4px;">Create your account</h2>
-            <p style="color:var(--brown2); font-size:13px; font-weight:800; margin-bottom:18px;">Join Instanimals and help animals find homes</p>
-            <div class="row2">
-              <div class="field">
-                <label>Username</label>
-                <input id="signup-username" placeholder="your_name" />
-              </div>
-              <div class="field">
-                <label>Email</label>
-                <input id="signup-email" type="email" placeholder="you@email.com" />
-              </div>
-            </div>
-            <div class="field" style="margin-top:12px;">
-              <label>Password <span style="font-weight:700; color:var(--brown2);">(min 6 characters)</span></label>
-              <input id="signup-password" type="password" placeholder="••••••••" />
-            </div>
-            <button class="btn" type="submit" id="signupBtn" style="width:100%; margin-top:18px;">Create Account</button>
-          </form>
+        <script>
+            const $ = (id) => document.getElementById(id);
+            const statusEl = $("authStatus");
+            const primaryBtn = $("primaryBtn");
+            const logoutBtn = $("logoutBtn");
+            const pageTitle = $("pageTitle");
+            const pageSub = $("pageSub");
+            const switchBtn = $("switchBtn");
+            const switchText = $("switchText");
+            const signupFields = $("signupFields");
 
-        </div>
-      </div>
-    </main>
+            let isSignup = new URLSearchParams(window.location.search).get("mode") === "signup";
 
-    <script>
-      const params = new URLSearchParams(location.search);
-      let currentMode = params.get("mode") === "signup" ? "signup" : "login";
+            function updateUI() {
+                if (isSignup) {
+                    pageTitle.textContent = "Create Account";
+                    pageSub.textContent = "Join the Instanimals family";
+                    primaryBtn.textContent = "Register";
+                    switchText.textContent = "Already have an account?";
+                    switchBtn.textContent = "Login";
+                    signupFields.style.display = "block";
+                } else {
+                    pageTitle.textContent = "Login";
+                    pageSub.textContent = "Thank you for being a foster family";
+                    primaryBtn.textContent = "Login";
+                    switchText.textContent = "Don't have an account?";
+                    switchBtn.textContent = "Register";
+                    signupFields.style.display = "none";
+                }
+                statusEl.textContent = "";
+            }
 
-      function setMode(mode){
-        currentMode = mode;
-        document.getElementById("loginForm").style.display  = mode === "login"  ? "" : "none";
-        document.getElementById("signupForm").style.display = mode === "signup" ? "" : "none";
-        document.getElementById("tab-login").style.background  = mode === "login"  ? "var(--accent)" : "#fff";
-        document.getElementById("tab-login").style.color       = mode === "login"  ? "#fff" : "var(--brown)";
-        document.getElementById("tab-signup").style.background = mode === "signup" ? "var(--accent)" : "#fff";
-        document.getElementById("tab-signup").style.color      = mode === "signup" ? "#fff" : "var(--brown)";
-        hideError();
-      }
+            switchBtn.addEventListener("click", () => {
+                isSignup = !isSignup;
+                const newUrl = window.location.pathname + (isSignup ? "?mode=signup" : "");
+                window.history.pushState({}, "", newUrl);
+                updateUI();
+            });
 
-      function showError(msg){
-        const el = document.getElementById("auth-error");
-        el.textContent = msg;
-        el.style.display = "block";
-      }
-      function hideError(){
-        document.getElementById("auth-error").style.display = "none";
-      }
+            updateUI();
 
-      async function handleLogin(e){
-        e.preventDefault();
-        hideError();
-        const email    = document.getElementById("login-email").value.trim();
-        const password = document.getElementById("login-password").value;
-        if(!email || !password) return showError("Please enter email and password.");
+            function setStatus(msg) {
+                statusEl.textContent = msg;
+            }
+            function setBusy(isBusy) {
+                primaryBtn.disabled = isBusy;
+                primaryBtn.textContent = isBusy ? "Working..." : (isSignup ? "Register" : "Login");
+            }
 
-        const btn = document.getElementById("loginBtn");
-        btn.disabled = true; btn.textContent = "Signing in...";
-        try{
-          const res = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-          });
-          const data = await res.json();
-          if(!res.ok) return showError(data.message || "Invalid email or password.");
-          localStorage.setItem("token", email);
-          localStorage.setItem("user_profile", JSON.stringify({
-            name: data.username,
-            handle: data.handle || data.username,
-            bio: "",
-            avatarSeed: data.username,
-          }));
-          location.href = "/";
-        }catch(err){
-          showError("Something went wrong. Please try again.");
-        }finally{
-          btn.disabled = false; btn.textContent = "Sign In";
-        }
-      }
+            primaryBtn.addEventListener("click", async () => {
+                const email = $("email").value.trim();
+                const password = $("password").value;
+                const username = $("username")?.value.trim();
 
-      async function handleSignup(e){
-        e.preventDefault();
-        hideError();
-        const username = document.getElementById("signup-username").value.trim();
-        const email    = document.getElementById("signup-email").value.trim();
-        const password = document.getElementById("signup-password").value;
-        if(!username || !email || !password) return showError("Please fill in all fields.");
-        if(password.length < 6) return showError("Password must be at least 6 characters.");
+                if (!email || !password || (isSignup && !username))
+                    return setStatus("Please fill in all fields.");
 
-        const btn = document.getElementById("signupBtn");
-        btn.disabled = true; btn.textContent = "Creating account...";
-        try{
-          const res = await fetch("/api/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, username }),
-          });
-          const data = await res.json();
-          if(!res.ok) return showError(data.message || "Could not create account.");
-          localStorage.setItem("token", email);
-          localStorage.setItem("user_profile", JSON.stringify({
-            name: data.username,
-            handle: data.handle || data.username,
-            bio: "",
-            avatarSeed: data.username,
-          }));
-          location.href = "/";
-        }catch(err){
-          showError("Something went wrong. Please try again.");
-        }finally{
-          btn.disabled = false; btn.textContent = "Create Account";
-        }
-      }
+                setBusy(true);
+                try {
+                    const endpoint = isSignup ? "/api/signup" : "/api/login";
+                    const body = isSignup ? { email, password, username } : { email, password };
+                    
+                    const res = await fetch(endpoint, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(body)
+                    });
+                    
+                    const data = await res.json();
+                    
+                    if (!res.ok) {
+                        setStatus(data.message || "An error occurred.");
+                    } else {
+                        setStatus(isSignup ? "Account created! Redirecting..." : "Logged in! Redirecting...");
+                        localStorage.setItem("token", data.email || email);
+                        localStorage.setItem("user_profile", JSON.stringify({
+                            name: data.username,
+                            handle: data.handle || data.username,
+                            avatarSeed: data.username
+                        }));
+                        setTimeout(() => {
+                            location.href = "/";
+                        }, 1000);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    setStatus("Network error. Please try again.");
+                } finally {
+                    setBusy(false);
+                }
+            });
 
-      // Init
-      setMode(currentMode);
-    </script>
-  </body>
+            // Check if already logged in
+            if (localStorage.getItem("token")) {
+                statusEl.textContent = `Already logged in as ${localStorage.getItem("token")}`;
+                logoutBtn.style.display = "block";
+            }
+
+            logoutBtn.addEventListener("click", () => {
+                localStorage.clear();
+                location.reload();
+            });
+        </script>
+    </body>
 </html>

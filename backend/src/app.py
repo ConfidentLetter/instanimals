@@ -17,7 +17,14 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from elevenlabs import ElevenLabs
 from firebase_admin import credentials, firestore, storage
-from flask import Flask, Response, jsonify, render_template, request, send_from_directory
+from flask import (
+    Flask,
+    Response,
+    jsonify,
+    render_template,
+    request,
+    send_from_directory,
+)
 from google.genai import types as genai_types
 
 # from algorithms.recommender import build_advanced_matrix, get_hybrid_recommendations
@@ -72,8 +79,6 @@ _frontend = Path(__file__).resolve().parent.parent.parent / "frontend"
 app = Flask(
     __name__,
     template_folder=_frontend,
-    static_folder=str(_frontend),
-    static_url_path="",
 )
 
 
