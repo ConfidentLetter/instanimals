@@ -1,0 +1,28 @@
+/* =========================
+   instanimals - Base Styles
+   ========================= */
+
+:root{
+  --bg: #f6f4f3;
+  --panel: #ffffff;
+  --text: #222;
+  --muted: #6b6b6b;
+  --border: #ececec;
+
+  --accent: #ff6a88;
+  --accent2: #ff9a8b;
+  --accentSoft: #ffe9e5;
+
+  --shadow: 0 8px 22px rgba(0,0,0,.06);
+  --radius: 18px;
+  --radiusSm: 12px;
+  --sidebarW: 260px;
+
+  --headerH: 72px;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
