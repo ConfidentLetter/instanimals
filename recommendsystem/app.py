@@ -18,7 +18,7 @@ db = firestore.client()
 
 @app.route('/api/recommend', methods=['GET'])
 def recommend():
-    """Fetch data from Firestore and run recommendation logic | 从 Firestore 获取数据并运行推荐逻辑"""
+    """Fetch data from Firestore and run recommendation logic """
     try:
 
         target_id = request.args.get('shelter_id', type=int)
