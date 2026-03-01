@@ -198,3 +198,33 @@ body {
   transform: translateY(-4px);
   box-shadow: var(--shadowHover);
 }
+
+.card-pad {
+  padding: 22px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===== AVATAR (Cleaner) ===== */
+.user-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--accentSoft);
+  border: 2px solid #ffd6cf;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--accent);
+  overflow: hidden;
+}
+
