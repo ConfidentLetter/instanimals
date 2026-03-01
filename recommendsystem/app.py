@@ -31,3 +31,8 @@ class Interaction(db.Model):
         lowest_age = db.Column(db.Integer)
         quantity_anim = db.Column(db.Integer)
 
+class ShelterInfo(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True, name="shelter_id")
+    name = db.Column(db.String(100))
+    image_url = db.Column(db.String(255))
