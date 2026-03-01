@@ -153,3 +153,26 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+
+/* Header (Glass effect like modern apps) */
+#main-header {
+  height: var(--headerH);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+#header-title h2 {
+  font-size: 18px;
+  font-weight: 900;
+  color: #333;
+  letter-spacing: 1.2px;
+}
+
