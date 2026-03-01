@@ -5,28 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>instanimals - Discover the Wonders of Nature</title>
     
-    <!-- External Libraries: Lucide Icons & Inter Font -->
-    <script src="[https://unpkg.com/lucide@latest](https://unpkg.com/lucide@latest)"></script>
-    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap)" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- Leaflet Map Integration -->
-    <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
-    <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)"></script>
-    
-    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Global Toast Container -->
     <div id="toast-container"></div>
-
-    <!-- Sidebar Navigation -->
     <aside id="sidebar">
         <div class="logo" onclick="switchTab('explore')">
             <h1>instanimals</h1>
         </div>
-
         <nav id="nav-menu">
             <ul>
                 <li><a href="#" id="nav-explore"><i data-lucide="layout"></i> <span>Explore</span></a></li>
@@ -37,39 +28,29 @@
                 <li><a href="#" id="nav-settings"><i data-lucide="settings"></i> <span>Settings</span></a></li>
             </ul>
         </nav>
-
         <div class="sidebar-actions">
             <button id="btn-create-post" onclick="openCreatePostModal()">
                 <i data-lucide="plus"></i> New Post
             </button>
         </div>
-
         <div id="user-profile-summary"></div>
     </aside>
 
-    <!-- Main Application Container -->
     <div id="app-container">
-        
         <header id="main-header">
             <div id="header-left"></div>
-            <div id="header-title">
-                <h2>Explore</h2>
-            </div>
+            <div id="header-title"><h2>Explore</h2></div>
             <div id="header-right"></div>
         </header>
-
         <main id="main-view" class="no-scrollbar">
             <div id="content-area"></div>
         </main>
-
     </div>
 
-    <!-- Global Modal Container -->
     <div id="modal-root" onclick="closeModal()">
         <div class="modal-content fade-in" onclick="event.stopPropagation()"></div>
     </div>
 
-    <!-- Link to external logic script -->
     <script src="app.js"></script>
 </body>
 </html>
