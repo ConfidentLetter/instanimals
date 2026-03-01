@@ -22,3 +22,13 @@ def seed_firebase_data():
         {'foster_id': 102, 'shelter_id': 1, 'follow': 1, 'star': 5.0, 'lowest_age': 1, 'quantity_anim': 45},
         {'foster_id': 102, 'shelter_id': 2, 'follow': 0, 'star': 3.0, 'lowest_age': 0, 'quantity_anim': 12}
     ]
+
+print("Starting Firebase upload... ")
+
+for s_id, data in shelters.items():
+    db.collection('shelters').document(s_id).set(data)
+    print(f"Uploaded Shelter ID: {s_id}")
+
+for entry in interactions:
+    db.collection('interactions').add(entry)
+    print(f"Uploaded interaction for Foster: {entry['foster_id']}")
