@@ -13,6 +13,7 @@ const state = {
 
 const myProfile = {
     name: "Felix",
+    handle: "@felix_nature",
     bio: "Passionate about wildlife and nature photography. Capturing the tiny wonders of our planet. 🌱",
     avatarSeed: "Felix"
 };
