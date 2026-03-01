@@ -1,43 +1,47 @@
 import os
-
-from dotenv import load_dotenv
-load_dotenv()
-
-import firebase_admin
-from firebase_admin import credentials, firestore
-
 from pathlib import Path
 
-from flask import Flask, jsonify, request, render_template
+import firebase_admin
+from dotenv import load_dotenv
+from elevenlabs.client import ElevenLabsClient
+from firebase_admin import credentials, firestore
+from flask import Flask, jsonify, render_template, request
 
-cred_path = os.environ.get('FIREBASE_CREDENTIALS')
+load_dotenv()
+
+cred_path = os.environ.get("FIREBASE_CREDENTIALS")
+elevenlabs_api_path = os.environ.get("ELEVEN_LABS_API_KEY")
 
 if not firebase_admin._apps:
     cred = credentials.Certificate(cred_path)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+elevenlabs_client = ElevenLabsClient(api_key=elevenlabs_api_path)
 
-_frontend = Path(__file__).resolve().parent.parent.parent / 'frontend'
+_frontend = Path(__file__).resolve().parent.parent.parent / "frontend"
 app = Flask(__name__, template_folder=_frontend)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
+_ip = "2a09:bac2:6289:123c::1d1:d2"  # TODO: search for user ip regularly later
 
-_ip = "2a09:bac2:6289:123c::1d1:d2" # temp for now. ill change it when we have a way to get the user's ip
 
-@app.route('/find-shelters', methods=['POST'])
-def receive_coords():
+@app.route("/find-shelters", methods=["POST"])
+def find_shelters():
     data = request.get_json()
-    latitude = data.get('latitude')
-    longitude = data.get('longitude')
+    latitude = data.get("latitude")
+    longitude = data.get("longitude")
 
     print(f"Received coordinates: Latitude: {latitude}, Longitude: {longitude}")
 
-    return jsonify({
+    return jsonify(
+        {
             "status": "success",
-            "message": f"python got coords {latitude}, {longitude}"
-        })
+            "message": f"Coordinates received: {latitude}, {longitude}",
+        }
+    )
