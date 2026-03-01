@@ -36,3 +36,19 @@ def get_hybrid_recommendations(target_id, feature_matrix):
     sim_df = pd.DataFrame(item_sim, index=feature_matrix.columns, columns=feature_matrix.columns)
 
     return sim_df[target_id].sort_values(ascending=False).iloc[1:]
+
+
+if __name__ == "__main__":
+    mock_data = [
+        {'foster_id': 101, 'shelter_id': 1, 'follow': 1, 'star': 4.5, 'lowest_age': 1, 'quantity_anim': 45},
+        {'foster_id': 102, 'shelter_id': 1, 'follow': 1, 'star': 5.0, 'lowest_age': 1, 'quantity_anim': 45},
+        {'foster_id': 102, 'shelter_id': 2, 'follow': 0, 'star': 3.0, 'lowest_age': 0, 'quantity_anim': 12}
+    ]
+
+    matrix = build_advanced_matrix(mock_data)
+    print("Matrix built successfully!")
+
+
+    recommendations = get_hybrid_recommendations(1, matrix)
+    print("Recommendations for Shelter ID 1:")
+    print(recommendations)
