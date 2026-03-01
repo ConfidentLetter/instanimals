@@ -117,3 +117,21 @@ body {
     box-shadow var(--tMed) var(--easeOut),
     color var(--tMed) var(--easeOut);
 }
+
+#nav-menu a:hover {
+  background: var(--panelSoft);
+  border-color: #ffd6cf;
+  transform: translateX(4px);
+  box-shadow: var(--shadow);
+}
+
+#nav-menu a.active {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 154, 139, 0.15),
+    rgba(255, 106, 136, 0.12)
+  );
+  border-color: #ffd6cf;
+  font-weight: 900;
+  color: var(--accent);
+}
