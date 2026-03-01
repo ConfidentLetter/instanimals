@@ -254,3 +254,34 @@ body{
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+
+.card-pad{
+  padding: 18px;
+}
+
+.section-title{
+  font-size: 20px;
+  font-weight: 950;
+  margin-bottom: 6px;
+}
+
+.section-sub{
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Inputs (use later for forms) */
+.input{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  background: #fff;
+  transition: .15s ease;
+}
+.input:focus{
+  border-color: #ffd0cb;
+  box-shadow: 0 0 0 4px rgba(255,106,136,.10);
+}
+
