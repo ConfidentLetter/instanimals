@@ -127,3 +127,29 @@ body{
 .sidebar-actions{
   margin-top: 6px;
 }
+
+#btn-create-post{
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  box-shadow: 0 10px 22px rgba(255,106,136,.18);
+  transition: transform .12s ease, opacity .12s ease;
+}
+#btn-create-post:hover{ opacity: .94; }
+#btn-create-post:active{ transform: scale(.98); }
+
+/* User profile summary area */
+#user-profile-summary{
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
