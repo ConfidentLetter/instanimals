@@ -16,3 +16,15 @@
     --map-filter: none;
 }
 
+body.dark-mode {
+    --bg: #121212;
+    --panel: #1e1e1e;
+    --text: #e0e0e0;
+    --muted: #a0a0a0;
+    --border: #333333;
+    --accentSoft: #2a1b1d; 
+    --shadow: 0 8px 22px rgba(0,0,0,.4);
+    --map-filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
