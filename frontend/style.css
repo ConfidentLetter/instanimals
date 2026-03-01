@@ -111,3 +111,19 @@ body{
   border: 1px solid transparent;
   transition: .18s ease;
 }
+
+#nav-menu a:hover{
+  background: var(--accentSoft);
+  border-color: #ffd6cf;
+}
+
+#nav-menu a.active{
+  background: linear-gradient(135deg, rgba(255,154,139,.35), rgba(255,106,136,.25));
+  border-color: #ffd6cf;
+  font-weight: 900;
+}
+
+/* Sidebar create post button */
+.sidebar-actions{
+  margin-top: 6px;
+}
