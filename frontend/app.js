@@ -27,6 +27,7 @@ const notifications = [
 
 const contacts = [{ id: 1, name: "Happy Paws Shelter", lastMsg: "Thanks for your inquiry!", avatar: "Happy", online: true }];
 let chatHistory = { 1: [{ sender: 'them', text: 'Hello! How can we help you today?', time: '10:00' }] };
+
 // --- 3. UI Logic ---
 function showToast(title, msg) {
     const container = document.getElementById('toast-container');
