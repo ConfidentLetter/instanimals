@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from elevenlabs import ElevenLabs
 from firebase_admin import credentials, firestore, storage
 from flask import Flask, jsonify, render_template, request
+from algorithms.recommender import build_advanced_matrix, get_hybrid_recommendations
 
 load_dotenv()
 
@@ -88,6 +89,47 @@ def generate_animal_speech():
         return jsonify({"status": "success", "audio_url": blob.public_url})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route("/api/recommend", methods=["GET"])
+def recommend():
+    try:
+        target_id = request.args.get("shelter_id", type=int)
+
+        interactions_ref = db.collection("interactions")
+        docs = interactions_ref.stream()
+
+        raw_data = []
+        for doc in docs:
+            data = doc.to_dict()
+            raw_data.append({
+                "foster_id": data.get("foster_id"),
+                "shelter_id": data.get("shelter_id"),
+                "follow": data.get("follow"),
+                "star": data.get("star"),
+                "lowest_age": data.get("lowest_age"),
+                "quantity_anim": data.get("quantity_anim")
+            })
+
+        matrix = build_advanced_matrix(raw_data)
+        recommendations = get_hybrid_recommendations(target_id, matrix)
+
+        enriched_results = []
+        for s_id, score in recommendations.items():
+            shelter_doc = db.collection("shelters").document(str(s_id)).get()
+
+            if shelter_doc.exists:
+                info = shelter_doc.to_dict()
+                enriched_results.append({
+                    "shelter_id": int(s_id),
+                    "name": info.get("name"),
+                    "image_url": info.get("image_url"),
+                    "similarity": round(float(score), 2)
+                })
+
+        return jsonify(enriched_results)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
