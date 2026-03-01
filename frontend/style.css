@@ -176,3 +176,25 @@ body {
   letter-spacing: 1.2px;
 }
 
+/* Scrollable Main View */
+#main-view {
+  flex: 1;
+  padding: 28px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* ===== CARD SYSTEM (for animal posts) ===== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadowHover);
+}
