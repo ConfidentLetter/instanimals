@@ -285,3 +285,33 @@ body{
   box-shadow: 0 0 0 4px rgba(255,106,136,.10);
 }
 
+/* Buttons */
+.btn{
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: .12s ease;
+}
+.btn.primary{
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+}
+.btn.ghost{
+  background: #fff;
+  border: 1px solid var(--border);
+  color: #333;
+}
+.btn:hover{ opacity: .94; }
+.btn:active{ transform: scale(.98); }
+
+/* =========================
+   Modal Root (basic)
+   ========================= */
+#modal-root{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+}
