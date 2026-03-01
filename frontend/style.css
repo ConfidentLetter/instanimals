@@ -66,3 +66,19 @@ body{
 .toast .toast-msg{ color: var(--muted); font-size: 13px; margin-top: 2px; }
 .toast.success{ border-left: 5px solid #2ecc71; }
 .toast.error{ border-left: 5px solid #e74c3c; }
+
+/* =========================
+   Sidebar
+   ========================= */
+#sidebar{
+  width: var(--sidebarW);
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
