@@ -38,3 +38,34 @@ html,
 body {
   height: 100%;
 }
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  overflow: hidden; /* Main window fixed; inner views scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== A11Y: FOCUS RING (比赛加分) ===== */
+:where(a, button, input, textarea, select, [role="button"], [tabindex]):focus-visible {
+  outline: 3px solid rgba(255, 106, 136, 0.45);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: var(--sidebarW);
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  height: 100vh;
+  flex-shrink: 0;
+}
