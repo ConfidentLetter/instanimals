@@ -164,3 +164,34 @@ body {
 #btn-create-post:active {
   transform: scale(0.98);
 }
+
+/* ===== USER PROFILE (BOTTOM) ===== */
+#user-profile-summary {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+
+  transition:
+    background-color var(--tMed) var(--easeOut),
+    padding var(--tMed) var(--easeOut),
+    border-radius var(--tMed) var(--easeOut);
+}
+
+#user-profile-summary:hover {
+  background: var(--panelSoft);
+  padding: 12px;
+  border-radius: 16px;
+}
+
+/* ===== MAIN CONTENT ===== */
+#app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0; /* prevent overflow */
+}
