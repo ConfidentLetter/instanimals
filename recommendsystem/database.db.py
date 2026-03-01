@@ -11,7 +11,7 @@ db = firestore.client()
 
 
 def seed_firebase_data():
-    """Uploads shelter and interaction data to Firestore | 上传数据至云端"""
+
 
 
     shelters = {
