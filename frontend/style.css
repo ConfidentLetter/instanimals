@@ -195,3 +195,29 @@ body {
   height: 100vh;
   min-width: 0; /* prevent overflow */
 }
+
+/* Header (Glass effect) */
+#main-header {
+  height: var(--headerH);
+  background: rgba(255, 255, 255, 0.85);
+
+  /* Standard + webkit */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  /* fallback for browsers that don't support backdrop-filter */
+  #main-header {
+    background: var(--panel);
+  }
+}
