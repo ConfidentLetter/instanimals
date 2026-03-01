@@ -221,3 +221,27 @@ body {
     background: var(--panel);
   }
 }
+
+#header-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  color: #333;
+  letter-spacing: 1.2px;
+}
+
+/* Scrollable Main View */
+#main-view {
+  flex: 1;
+  padding: 28px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* ===== CARD SYSTEM ===== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
