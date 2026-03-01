@@ -69,3 +69,31 @@ body {
   height: 100vh;
   flex-shrink: 0;
 }
+
+/* Logo */
+#sidebar .logo h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+
+  /* Standard + webkit (fix vendorPrefix warning) */
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  /* Ensure text is transparent across engines */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== NAV MENU ===== */
+#nav-menu ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin: 10px 0 0;
+  padding: 0;
+}
