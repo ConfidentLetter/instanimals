@@ -1,2 +1,69 @@
 <!DOCTYPE html>
-<html lang="en"></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instanimals - Basic Skeleton</title>
+    <!-- CSS links will be placed here -->
+</head>
+<body>
+
+    <!-- Global Notification Container (Toast) -->
+    <div id="toast-container"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="logo">
+            <h1>instanimals</h1>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#" id="nav-explore">Explore</a></li>
+                <li><a href="#" id="nav-adopt">Adopt</a></li>
+                <li><a href="#" id="nav-search">Search</a></li>
+                <li><a href="#" id="nav-notifications">Notifications</a></li>
+                <li><a href="#" id="nav-friends">Messages</a></li>
+                <li><a href="#" id="nav-settings">Settings</a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-actions">
+            <button id="btn-create-post">Create Post</button>
+        </div>
+
+        <div id="user-profile-summary">
+            <!-- Current user avatar and name will be injected here -->
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div id="app-container">
+        
+        <!-- Top Bar (Header) -->
+        <header id="main-header">
+            <div id="header-left">
+                <!-- Back button placeholder -->
+            </div>
+            <div id="header-title">
+                <h2>Explore</h2>
+            </div>
+            <div id="header-right">
+                <!-- Action buttons or more options -->
+            </div>
+        </header>
+
+        <!-- Dynamic View Mount Point -->
+        <main id="main-view">
+            <!-- Content will be dynamically injected via JavaScript -->
+            <div id="content-area"></div>
+        </main>
+
+    </div>
+
+    <!-- Modal/Popup Container -->
+    <div id="modal-root"></div>
+
+    <!-- JavaScript links will be placed here -->
+</body>
+</html>
