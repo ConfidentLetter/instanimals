@@ -3,7 +3,7 @@ from pathlib import Path
 
 import firebase_admin
 from dotenv import load_dotenv
-from elevenlabs.client import ElevenLabsClient
+from elevenlabs import ElevenLabs
 from firebase_admin import credentials, firestore, storage
 from flask import Flask, jsonify, render_template, request
 
@@ -17,7 +17,7 @@ if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-elevenlabs_client = ElevenLabsClient(api_key=elevenlabs_api_path)
+elevenlabs_client = ElevenLabs(api_key=elevenlabs_api_path)
 
 _frontend = Path(__file__).resolve().parent.parent.parent / "frontend"
 app = Flask(__name__, template_folder=_frontend)
@@ -88,3 +88,7 @@ def generate_animal_speech():
         return jsonify({"status": "success", "audio_url": blob.public_url})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8080)
