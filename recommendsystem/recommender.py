@@ -25,3 +25,9 @@ def build_advanced_matrix(raw_records):
             df['norm_age'] +
             df['norm_quantity']
     )
+    return df.pivot_table(index='foster_id', columns='shelter_id', values='total_score').fillna(0)
+
+def get_hybrid_recommendations(target_id, feature_matrix):
+
+    if target_id not in feature_matrix.columns:
+        return pd.Series(dtype='float64')
