@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Instanimals</title>
+    <link rel="stylesheet" href="/pages/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="home-badge" href="/">
+          <div class="home-icon">🏠</div>
+          <div class="home-text">Home</div>
+        </a>
+        <div class="nav-links">
+          <a href="/pages/form.html">Become a Foster</a>
+          <a href="/pages/login.html">Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="login-wrap">
+      <div class="container">
+        <div id="mode-tabs" style="display:flex; gap:0; max-width:420px; margin:32px auto 0; border:2px solid var(--line); border-radius:12px; overflow:hidden;">
+          <button id="tab-login" onclick="setMode('login')" style="flex:1; padding:12px; font-weight:1000; border:none; cursor:pointer; background:#fff; color:var(--brown); border-right:1px solid var(--line);">Login</button>
+          <button id="tab-signup" onclick="setMode('signup')" style="flex:1; padding:12px; font-weight:1000; border:none; cursor:pointer; background:#fff; color:var(--brown);">Create Account</button>
+        </div>
+
+        <div class="form-card login-card" style="max-width:420px; margin:16px auto 0;">
+
+          <div id="auth-error" style="display:none; background:#e74c3c; color:#fff; padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:13px; font-weight:800;"></div>
+
+          <!-- Login form -->
+          <form id="loginForm" onsubmit="handleLogin(event)">
+            <h2 style="font-weight:1000; font-size:20px; margin-bottom:4px;">Welcome back</h2>
+            <p style="color:var(--brown2); font-size:13px; font-weight:800; margin-bottom:18px;">Sign in to your Instanimals account</p>
+            <div class="field">
+              <label>Email</label>
+              <input id="login-email" type="email" placeholder="you@email.com" />
+            </div>
+            <div class="field" style="margin-top:12px;">
+              <label>Password</label>
+              <input id="login-password" type="password" placeholder="••••••••" />
+            </div>
+            <button class="btn" type="submit" id="loginBtn" style="width:100%; margin-top:18px;">Sign In</button>
+          </form>
+
+          <!-- Signup form -->
+          <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
+            <h2 style="font-weight:1000; font-size:20px; margin-bottom:4px;">Create your account</h2>
+            <p style="color:var(--brown2); font-size:13px; font-weight:800; margin-bottom:18px;">Join Instanimals and help animals find homes</p>
+            <div class="row2">
+              <div class="field">
+                <label>Username</label>
+                <input id="signup-username" placeholder="your_name" />
+              </div>
+              <div class="field">
+                <label>Email</label>
+                <input id="signup-email" type="email" placeholder="you@email.com" />
+              </div>
+            </div>
+            <div class="field" style="margin-top:12px;">
+              <label>Password <span style="font-weight:700; color:var(--brown2);">(min 6 characters)</span></label>
+              <input id="signup-password" type="password" placeholder="••••••••" />
+            </div>
+            <button class="btn" type="submit" id="signupBtn" style="width:100%; margin-top:18px;">Create Account</button>
+          </form>
+
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      let currentMode = params.get("mode") === "signup" ? "signup" : "login";
+
+      function setMode(mode){
+        currentMode = mode;
+        document.getElementById("loginForm").style.display  = mode === "login"  ? "" : "none";
+        document.getElementById("signupForm").style.display = mode === "signup" ? "" : "none";
+        document.getElementById("tab-login").style.background  = mode === "login"  ? "var(--accent)" : "#fff";
+        document.getElementById("tab-login").style.color       = mode === "login"  ? "#fff" : "var(--brown)";
+        document.getElementById("tab-signup").style.background = mode === "signup" ? "var(--accent)" : "#fff";
+        document.getElementById("tab-signup").style.color      = mode === "signup" ? "#fff" : "var(--brown)";
+        hideError();
+      }
+
+      function showError(msg){
+        const el = document.getElementById("auth-error");
+        el.textContent = msg;
+        el.style.display = "block";
+      }
+      function hideError(){
+        document.getElementById("auth-error").style.display = "none";
+      }
+
+      async function handleLogin(e){
+        e.preventDefault();
+        hideError();
+        const email    = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        if(!email || !password) return showError("Please enter email and password.");
+
+        const btn = document.getElementById("loginBtn");
+        btn.disabled = true; btn.textContent = "Signing in...";
+        try{
+          const res = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await res.json();
+          if(!res.ok) return showError(data.message || "Invalid email or password.");
+          localStorage.setItem("token", email);
+          localStorage.setItem("user_profile", JSON.stringify({
+            name: data.username,
+            handle: data.handle || data.username,
+            bio: "",
+            avatarSeed: data.username,
+          }));
+          location.href = "/";
+        }catch(err){
+          showError("Something went wrong. Please try again.");
+        }finally{
+          btn.disabled = false; btn.textContent = "Sign In";
+        }
+      }
+
+      async function handleSignup(e){
+        e.preventDefault();
+        hideError();
+        const username = document.getElementById("signup-username").value.trim();
+        const email    = document.getElementById("signup-email").value.trim();
+        const password = document.getElementById("signup-password").value;
+        if(!username || !email || !password) return showError("Please fill in all fields.");
+        if(password.length < 6) return showError("Password must be at least 6 characters.");
+
+        const btn = document.getElementById("signupBtn");
+        btn.disabled = true; btn.textContent = "Creating account...";
+        try{
+          const res = await fetch("/api/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password, username }),
+          });
+          const data = await res.json();
+          if(!res.ok) return showError(data.message || "Could not create account.");
+          localStorage.setItem("token", email);
+          localStorage.setItem("user_profile", JSON.stringify({
+            name: data.username,
+            handle: data.handle || data.username,
+            bio: "",
+            avatarSeed: data.username,
+          }));
+          location.href = "/";
+        }catch(err){
+          showError("Something went wrong. Please try again.");
+        }finally{
+          btn.disabled = false; btn.textContent = "Create Account";
+        }
+      }
+
+      // Init
+      setMode(currentMode);
+    </script>
+  </body>
+</html>

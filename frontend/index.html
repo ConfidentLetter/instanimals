@@ -1,75 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>instanimals - Discover the Wonders of Nature</title>
-    
-    <!-- External Libraries: Lucide Icons & Inter Font -->
-    <script src="[https://unpkg.com/lucide@latest](https://unpkg.com/lucide@latest)"></script>
-    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap)" rel="stylesheet">
-    
-    <!-- Leaflet Map Integration -->
-    <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
-    <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)"></script>
-    
-    <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Instanimals</title>
+        <link rel="stylesheet" href="/style.css" />
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    </head>
+    <body>
+        <!-- Toast notifications -->
+        <div id="toast-container"></div>
 
-    <!-- Global Toast Container -->
-    <div id="toast-container"></div>
-
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar">
-        <div class="logo" onclick="switchTab('explore')">
-            <h1>instanimals</h1>
+        <!-- Modal overlay -->
+        <div id="modal-root">
+            <div class="modal-content"></div>
         </div>
 
-        <nav id="nav-menu">
-            <ul>
-                <li><a href="#" id="nav-explore"><i data-lucide="layout"></i> <span>Explore</span></a></li>
-                <li><a href="#" id="nav-adopt"><i data-lucide="heart"></i> <span>Adopt</span></a></li>
-                <li><a href="#" id="nav-search"><i data-lucide="search"></i> <span>Search</span></a></li>
-                <li><a href="#" id="nav-notifications"><i data-lucide="bell"></i> <span>Activity</span></a></li>
-                <li><a href="#" id="nav-friends"><i data-lucide="message-circle"></i> <span>Messages</span></a></li>
-                <li><a href="#" id="nav-settings"><i data-lucide="settings"></i> <span>Settings</span></a></li>
-            </ul>
+        <!-- ===== Sidebar (desktop) ===== -->
+        <div id="sidebar">
+            <div class="logo">
+                <h1>Instanimals</h1>
+                <!--<img
+                    src="https://firebasestorage.googleapis.com/v0/b/instanimals-8f702.firebasestorage.app/o/Instanimals%20LOGO.png?alt=media&token=e5116a91-9459-4330-b0a4-5b6c6b26d020"
+                    alt="Instanimals"
+                    style="height: 40px; width: auto"
+                />-->
+            </div>
+
+            <nav id="nav-menu">
+                <ul>
+                    <li>
+                        <a id="nav-explore" href="/">
+                            <span
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                "
+                            >
+                                <i data-lucide="compass"></i> Explore
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav-adopt" href="/adopt">
+                            <span
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                "
+                            >
+                                <i data-lucide="map-pin"></i> Find Shelters
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav-search" href="/search">
+                            <span
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                "
+                            >
+                                <i data-lucide="search"></i> Search
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav-notifications" href="/notifications">
+                            <span
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                "
+                            >
+                                <i data-lucide="bell"></i> Activity
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav-friends" href="/messages">
+                            <span
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                "
+                            >
+                                <i data-lucide="message-circle"></i> Messages
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-actions">
+                <button id="btn-create-post" onclick="openCreatePostModal()">
+                    + Share a Moment
+                </button>
+            </div>
+
+            <div id="user-profile-summary"></div>
+        </div>
+
+        <!-- ===== Main app container ===== -->
+        <div id="app-container">
+            <header id="main-header">
+                <div id="header-left"></div>
+                <div id="header-title"><h2></h2></div>
+                <div id="header-right">
+                    <button class="header-btn" onclick="openCreatePostModal()">
+                        <i data-lucide="plus-circle"></i>
+                    </button>
+                    <img
+                        src="https://firebasestorage.googleapis.com/v0/b/instanimals-8f702.firebasestorage.app/o/Instanimals%20LOGO.png?alt=media&token=e5116a91-9459-4330-b0a4-5b6c6b26d020"
+                        alt="Instanimals"
+                        style="height: 60px; width: auto"
+                    />
+                </div>
+            </header>
+
+            <div id="main-view">
+                <div id="content-area"></div>
+            </div>
+        </div>
+
+        <!-- ===== Bottom nav (mobile) ===== -->
+        <nav id="bottom-nav">
+            <a id="mobile-nav-explore" href="/">
+                <i data-lucide="compass"></i>
+                <span>Home</span>
+            </a>
+            <a id="mobile-nav-adopt" href="/adopt">
+                <i data-lucide="map-pin"></i>
+                <span>Shelters</span>
+            </a>
+            <a id="mobile-nav-search" href="/search">
+                <i data-lucide="search"></i>
+                <span>Search</span>
+            </a>
+            <a id="mobile-nav-notifications" href="/notifications">
+                <i data-lucide="bell"></i>
+                <span>Activity</span>
+            </a>
         </nav>
 
-        <div class="sidebar-actions">
-            <button id="btn-create-post" onclick="openCreatePostModal()">
-                <i data-lucide="plus"></i> New Post
-            </button>
+        <!-- Login side panel -->
+        <div id="login-panel-overlay" onclick="closeLoginPanel()"></div>
+        <div id="login-panel">
+            <button class="panel-close" onclick="closeLoginPanel()">✕</button>
+            <div id="login-panel-inner"></div>
         </div>
 
-        <div id="user-profile-summary"></div>
-    </aside>
-
-    <!-- Main Application Container -->
-    <div id="app-container">
-        
-        <header id="main-header">
-            <div id="header-left"></div>
-            <div id="header-title">
-                <h2>Explore</h2>
-            </div>
-            <div id="header-right"></div>
-        </header>
-
-        <main id="main-view" class="no-scrollbar">
-            <div id="content-area"></div>
-        </main>
-
-    </div>
-
-    <!-- Global Modal Container -->
-    <div id="modal-root" onclick="closeModal()">
-        <div class="modal-content fade-in" onclick="event.stopPropagation()"></div>
-    </div>
-
-    <!-- Link to external logic script -->
-    <script src="app.js"></script>
-</body>
+        <script src="/app.js"></script>
+    </body>
 </html>

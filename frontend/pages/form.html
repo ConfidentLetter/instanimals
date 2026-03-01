@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Become a Foster Family - Instanimals</title>
+        <link rel="stylesheet" href="/pages/styles.css" />
+    </head>
+    <body>
+        <nav class="nav">
+            <div class="container nav-inner">
+                <a class="home-badge" href="/" style="display:flex;align-items:center;gap:8px;flex-direction:row;width:auto;">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/instanimals-8f702.firebasestorage.app/o/Instanimals%20LOGO.png?alt=media&token=e5116a91-9459-4330-b0a4-5b6c6b26d020" style="height:32px;width:auto;" alt="Instanimals">
+                    <span style="font-size:16px;font-weight:900;color:var(--accent);">Instanimals</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/#stories">Success Stories</a>
+                    <a href="/#how">How it Works</a>
+                    <a href="/login.html">Login</a>
+                    <div class="user-pill">👤</div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="form-wrap">
+            <div class="container">
+                <div class="form-card">
+                    <h1 class="form-title">Become a Foster Parent</h1>
+                    <div class="hr"></div>
+
+                    <form id="appForm">
+                        <div class="small" style="font-weight: 1000">
+                            Personal Info:
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px">
+                            <div class="field">
+                                <label>First Name:</label>
+                                <input id="firstName" />
+                            </div>
+                            <div class="field">
+                                <label>Last Name:</label>
+                                <input id="lastName" />
+                            </div>
+
+                            <div class="field full">
+                                <label>Address:</label>
+                                <input id="address" />
+                            </div>
+
+                            <div class="field">
+                                <label>City:</label>
+                                <input id="city" />
+                            </div>
+                            <div class="field">
+                                <label>State:</label>
+                                <input
+                                    id="state"
+                                    maxlength="2"
+                                    placeholder="CA"
+                                />
+                            </div>
+                            <div class="field">
+                                <label>Zip:</label>
+                                <input id="zip" />
+                            </div>
+
+                            <div class="field">
+                                <label>Phone Number:</label>
+                                <input id="phone" />
+                            </div>
+                            <div class="field">
+                                <label>Email Address:</label>
+                                <input id="email" type="email" />
+                            </div>
+                        </div>
+
+                        <div class="checks">
+                            <div class="small" style="font-weight:900; color:var(--brown);">
+                                The following criteria are required for all foster families. Please check each correct response:
+                            </div>
+                            <label><input type="checkbox" id="crit_age18"> I certify that I am 18 years of age or older</label>
+                            <label><input type="checkbox" id="crit_county"> I am a Santa Clara County resident</label>
+                            <label><input type="checkbox" id="crit_transport"> I have immediate and reliable transportation to transport a foster dog to and from the shelter and/or an emergency clinic if needed</label>
+                            <label><input type="checkbox" id="crit_separate"> Foster dogs and resident animals need to be kept separated, at least for an initial decompression period</label>
+                            <div class="field full" style="margin-top:6px;">
+                                <label>Signature — type your name to verify you meet all requirements above</label>
+                                <input id="signature" placeholder="Your full name">
+                            </div>
+                        </div>
+
+                        <div class="hr"></div>
+
+                        <div class="small" style="font-weight: 1000">
+                            Foster Options:
+                        </div>
+                        <div
+                            class="small"
+                            style="margin-top: 8px; font-weight: 900"
+                        >
+                            Which foster options are you interested in? Check
+                            all that apply:
+                        </div>
+                        <div class="small" style="margin-top: 6px">
+                            <label
+                                ><input type="checkbox" id="opt_short" /> Short
+                                term foster (3–5 nights)</label
+                            >
+                            <label
+                                ><input type="checkbox" id="opt_long" /> Long
+                                term foster (5+ nights or until they are
+                                adopted)</label
+                            >
+                        </div>
+
+                        <div class="hr"></div>
+
+                        <div class="small" style="font-weight: 1000">
+                            Household Details:
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px">
+                            <div class="field full">
+                                <label
+                                    >Do you have personal dog experience? Any
+                                    behavior challenges you feel comfortable
+                                    managing?</label
+                                >
+                                <textarea id="experienceNotes"></textarea>
+                            </div>
+
+                            <div class="field full">
+                                <label
+                                    >Are there any breeds/types you are NOT
+                                    comfortable working with?</label
+                                >
+                                <input
+                                    id="notes"
+                                    placeholder="If none, type none."
+                                />
+                            </div>
+
+                            <div class="field full">
+                                <label
+                                    >Are there other animals in your
+                                    home?</label
+                                >
+                                <input
+                                    id="otherPets"
+                                    placeholder="e.g., 1 dog, 2 cats, none"
+                                />
+                            </div>
+
+                            <div class="field">
+                                <label>Do you currently rent?</label>
+                                <select id="ownOrRent">
+                                    <option value="">—</option>
+                                    <option value="own">Own</option>
+                                    <option value="rent">Rent</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Landlord allows pets?</label>
+                                <select id="landlordOk">
+                                    <option value="">—</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                    <option value="na">N/A</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Has Yard?</label>
+                                <select id="hasYard">
+                                    <option value="unknown">Unknown</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Household size:</label>
+                                <input
+                                    id="householdSize"
+                                    type="number"
+                                    min="1"
+                                />
+                            </div>
+
+                            <div class="field">
+                                <label>Experience Level</label>
+                                <select id="experienceLevel">
+                                    <option value="1">Beginner</option>
+                                    <option value="2">Intermediate</option>
+                                    <option value="3">Advanced</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Hours per week available</label>
+                                <input
+                                    id="hoursPerWeek"
+                                    type="number"
+                                    min="0"
+                                />
+                            </div>
+
+                            <div class="field">
+                                <label>Preferred Species</label>
+                                <select id="preferredSpecies">
+                                    <option value="any">Any</option>
+                                    <option value="dog">Dog</option>
+                                    <option value="cat">Cat</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Preferred Size</label>
+                                <select id="preferredSize">
+                                    <option value="any">Any</option>
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Can medicate?</label>
+                                <select id="canMedicate">
+                                    <option value="unknown">Unknown</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Can transport?</label>
+                                <select id="canTransport">
+                                    <option value="unknown">Unknown</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button
+                                type="button"
+                                class="btn secondary"
+                                onclick="history.back()"
+                            >
+                                Back
+                            </button>
+                            <button id="submitBtn" type="submit" class="btn">
+                                Submit Application
+                            </button>
+                        </div>
+
+                        <div
+                            style="
+                                text-align: center;
+                                margin-top: 18px;
+                                padding-top: 16px;
+                                border-top: 1px solid var(--line);
+                            "
+                        >
+                            <p
+                                style="
+                                    font-size: 13px;
+                                    color: var(--brown2);
+                                    margin: 0 0 10px;
+                                "
+                            >
+                                Not ready to foster yet?
+                            </p>
+                            <a
+                                href="/pages/login.html?mode=signup"
+                                class="btn secondary"
+                                style="
+                                    display: inline-flex;
+                                    text-decoration: none;
+                                "
+                            >
+                                Skip &amp; just create an account
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <script src="/pages/form.js"></script>
+    </body>
+</html>

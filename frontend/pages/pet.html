@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet - Instanimals</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .pet-detail{ padding: 18px 0 40px; background: var(--bg); }
+      .two{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:14px; }
+      .detail-img{ height:340px; border-radius: var(--radius); border:1px solid var(--line); overflow:hidden; background:#eee; }
+      .detail-img img{ width:100%; height:100%; object-fit:cover; }
+      .box{ background:#fff; border:1px solid var(--line); border-radius: var(--radius); padding:16px; box-shadow: var(--shadow); }
+      .big{ font-size:28px; font-weight:1000; margin:0; }
+      .kv{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+      ul{ margin:8px 0 0; padding-left:18px; }
+      #error{ display:none; color:#b91c1c; font-weight:900; padding:10px; border:1px solid #fecaca; border-radius:12px; background:#fff; }
+      @media (max-width: 900px){ .two{ grid-template-columns:1fr; } .detail-img{ height:240px; } }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
+        <a class="brand" href="/">
+          <span class="logo">🏠</span>
+          <span>Instanimals</span>
+        </a>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/login.html">Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pet-detail">
+      <div class="container">
+        <div id="error"></div>
+
+        <div class="two">
+          <div class="box">
+            <div class="detail-img"><img id="petImg" alt=""></div>
+            <div style="margin-top:12px;">
+              <h1 class="big" id="petName">Loading...</h1>
+              <div class="small" id="petMeta"></div>
+
+              <div class="kv">
+                <span class="badge">status: <span id="petStatus">—</span></span>
+                <span class="badge">energy: <span id="petEnergy">—</span></span>
+                <span class="badge">medical: <span id="petMedical">—</span></span>
+              </div>
+
+              <div style="margin-top:12px;">
+                <button class="btn" id="applyBtn">Apply</button>
+                <button class="btn secondary" onclick="history.back()">Back</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-weight:1000;">Quick Match</div>
+                <div class="small">Adjust your situation to see match score</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:44px; font-weight:1000;" id="matchScore">—</div>
+                <div class="small">Match</div>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="field">
+              <label for="hasYard">Has Yard?</label>
+              <select id="hasYard">
+                <option value="unknown">Unknown</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+
+            <div class="field" style="margin-top:10px;">
+              <label>Hours per week: <span id="hoursLabel">5</span></label>
+              <input id="hoursPerWeek" type="range" min="0" max="20" value="5">
+            </div>
+
+            <div class="field" style="margin-top:10px;">
+              <label>Experience Level</label>
+              <select id="experienceLevel">
+                <option value="1">1 - Beginner</option>
+                <option value="2">2 - Intermediate</option>
+                <option value="3">3 - Advanced</option>
+              </select>
+            </div>
+
+            <div class="field" style="margin-top:10px;">
+              <label>Preferred Size</label>
+              <select id="prefersSize">
+                <option value="any">Any</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+
+            <div class="hr"></div>
+
+            <div>
+              <div style="font-weight:1000; color:#065f46;">Reasons</div>
+              <ul id="reasons"></ul>
+            </div>
+
+            <div style="margin-top:10px;">
+              <div style="font-weight:1000; color:#b91c1c;">Warnings</div>
+              <ul id="warnings"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/pet.js"></script>
+  </body>
+</html>
