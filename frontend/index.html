@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>instanimals - Basic Skeleton</title>
-    <!-- CSS links will be placed here -->
+    <title>instanimals - Discover the Wonders of Nature</title>
+    
+    <!-- External Libraries: Tailwind CSS for utility classes, Lucide for icons, and Inter for typography -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Link to external custom CSS styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="bg-[#f6f4f3] text-[#222] flex overflow-hidden h-screen">
 
-    <!-- Global Notification Container (Toast) -->
+    <!-- Global container for toast notifications -->
     <div id="toast-container"></div>
 
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar">
-        <div class="logo">
+    <!-- Sidebar: Fixed navigation menu -->
+    <aside id="sidebar" class="hidden md:flex flex-col">
+        <div class="logo" onclick="switchTab('explore')">
             <h1>instanimals</h1>
         </div>
 
+        <!-- Dynamic navigation menu -->
         <nav id="nav-menu">
             <ul>
-                <li><a href="#" id="nav-explore">Explore</a></li>
-                <li><a href="#" id="nav-adopt">Adopt</a></li>
-                <li><a href="#" id="nav-search">Search</a></li>
-                <li><a href="#" id="nav-notifications">Notifications</a></li>
-                <li><a href="#" id="nav-friends">Messages</a></li>
-                <li><a href="#" id="nav-settings">Settings</a></li>
+                <li><a href="#" id="nav-explore"><i data-lucide="layout"></i> <span>Explore</span></a></li>
+                <li><a href="#" id="nav-adopt"><i data-lucide="heart"></i> <span>Adopt</span></a></li>
+                <li><a href="#" id="nav-search"><i data-lucide="search"></i> <span>Search</span></a></li>
+                <li><a href="#" id="nav-notifications"><i data-lucide="bell"></i> <span>Activity</span></a></li>
+                <li><a href="#" id="nav-friends"><i data-lucide="message-circle"></i> <span>Messages</span></a></li>
+                <li><a href="#" id="nav-settings"><i data-lucide="settings"></i> <span>Settings</span></a></li>
             </ul>
         </nav>
 
+        <!-- Sidebar action buttons -->
         <div class="sidebar-actions">
-            <button id="btn-create-post">Create Post</button>
+            <button id="btn-create-post">
+                <i data-lucide="plus"></i> New Post
+            </button>
         </div>
 
-        <div id="user-profile-summary">
-            <!-- Current user avatar and name will be injected here -->
-        </div>
+        <!-- User profile summary area (injected by JS) -->
+        <div id="user-profile-summary"></div>
     </aside>
 
-    <!-- Main Content Area -->
-    <div id="app-container">
+    <!-- Main Content: Top bar and scrollable view -->
+    <div id="app-container" class="flex-1 flex flex-col min-w-0">
         
-        <!-- Top Bar (Header) -->
+        <!-- Sticky Header with dynamic navigation controls -->
         <header id="main-header">
             <div id="header-left">
-                <!-- Back button placeholder -->
+                <!-- Back button or menu icon will appear here -->
             </div>
             <div id="header-title">
                 <h2>Explore</h2>
             </div>
             <div id="header-right">
-                <!-- Action buttons or more options -->
+                <!-- Action-specific buttons like 'Post' will appear here -->
             </div>
         </header>
 
-        <!-- Dynamic View Mount Point -->
-        <main id="main-view">
-            <!-- Content will be dynamically injected via JavaScript -->
+        <!-- Main scrolling view area -->
+        <main id="main-view" class="flex-1 overflow-y-auto no-scrollbar">
+            <!-- content-area is where JavaScript injects different pages -->
             <div id="content-area"></div>
         </main>
 
     </div>
 
-    <!-- Modal/Popup Container -->
-    <div id="modal-root"></div>
+    <!-- Modal Root: Base layer for popups, logins, and detail views -->
+    <div id="modal-root" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Modal content dynamically injected by JS -->
+        </div>
+    </div>
 
-    <!-- JavaScript links will be placed here -->
+    <!-- Link to external logic script -->
+    <script src="script.js"></script>
 </body>
 </html>
