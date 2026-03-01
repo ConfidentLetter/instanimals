@@ -229,3 +229,28 @@ body{
   background: var(--accentSoft);
   border-color: #ffd6cf;
 }
+
+/* Main view */
+#main-view{
+  flex: 1;
+  padding: 22px;
+  overflow: auto;
+}
+
+/* Content area inside main */
+#content-area{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+/* =========================
+   Reusable UI blocks
+   ========================= */
+.card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
