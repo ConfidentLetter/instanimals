@@ -15,3 +15,13 @@ def build_advanced_matrix(raw_records):
         return pd.DataFrame()
 
     df = pd.DataFrame(raw_records)
+
+    scaler = MinMaxScaler()
+    df[['norm_age', 'norm_quantity']] = scaler.fit_transform(df[['lowest_age', 'quantity_anim']])
+
+    df['total_score'] = (
+            (df['follow'] * WEIGHT_CONFIG['follow_score']) +
+            (df['star'] * WEIGHT_CONFIG['star_multiplier']) +
+            df['norm_age'] +
+            df['norm_quantity']
+    )
