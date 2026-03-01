@@ -39,3 +39,28 @@ body {
     -webkit-font-smoothing: antialiased;
     transition: background 0.3s ease, color 0.3s ease;
 }
+
+#nav-menu a:hover { background: var(--accentSoft); }
+
+#nav-menu a.active {
+    background: linear-gradient(135deg, rgba(255,154,139,.15), rgba(255,106,136,.1));
+    border-color: #ffd6cf;
+    color: var(--accent);
+    font-weight: 900;
+}
+
+#btn-create-post {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    padding: 14px;
+    border-radius: 14px;
+    color: #fff;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    box-shadow: 0 10px 22px rgba(255,106,136,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
