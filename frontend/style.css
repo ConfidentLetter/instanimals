@@ -196,3 +196,24 @@ body.dark-mode .shelter-detail-pop { color: #fff; }
 /* Modals & Switch */
 #modal-root { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9000; display: none; place-items: center; }
 .modal-content { background: var(--panel); color: var(--text); width: 90%; max-width: 440px; border-radius: 28px; padding: 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); position: relative; }
+
+.toggle-switch { position: relative; width: 48px; height: 24px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--accent); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* Animation */
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.fade-in { animation: fadeIn 0.4s ease-out forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: grid; gap: 10px; pointer-events: none; }
+.toast { background: var(--panel); border: 1px solid var(--border); box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 14px 18px; border-radius: 16px; min-width: 280px; display: flex; gap: 12px; align-items: flex-start; pointer-events: auto; animation: slideIn 0.3s forwards; }
+
+@media (max-width: 820px) {
+    #sidebar { display: none; }
+    #app-container { margin-left: 0; }
+}
